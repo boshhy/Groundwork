@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class AnswerData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("UI Elements")]
+    [SerializeField] TextMeshProUGUI infoTextObject;
+    [SerializeField] Image toggle;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+    [Header("Textures")]
+    [SerializeField] Sprite uncheckedToggle;
+    [SerializeField] Sprite checkedToggle;
+
+    private int _answerIndex = -1;
+    public int AnswerIndex { get { return _answerIndex; } }
+
+
+
 }

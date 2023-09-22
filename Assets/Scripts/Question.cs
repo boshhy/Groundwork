@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,10 @@ public struct Answer
     public bool IsCorrect { get { return _isCorrect; } }
 }
 
+[CreateAssetMenu(fileName = "New Question", menuName = "Quiz/New Question")]
 public class Question : ScriptableObject
 {
-    public enum AnswerType { Multiiple, Single }
+    public enum AnswerType { Multiple, Single }
 
     [SerializeField] private string _info = string.Empty;
     public string Info { get { return _info; } }
@@ -30,7 +32,7 @@ public class Question : ScriptableObject
     [SerializeField] private int _timer = 0;
     public int Timer { get { return _timer; } }
 
-    [SerializeField] private AnswerType _answerType = AnswerType.Multiiple;
+    [SerializeField] private AnswerType _answerType = AnswerType.Multiple;
     public AnswerType GetAnswerType { get { return _answerType; } }
 
     [SerializeField] private int _addScore = 10;
@@ -49,5 +51,8 @@ public class Question : ScriptableObject
         return CorrectAnswers;
     }
 
-
+    public static implicit operator int(Question v)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: New Question 3
   m_EditorClassIdentifier: 
   _info: 8*8=
-  _answers: []
+  _answers:
+  - _info: 48
+    _isCorrect: 0
+  - _info: 64
+    _isCorrect: 1
+  - _info: 128
+    _isCorrect: 0
+  - _info: 108
+    _isCorrect: 0
   _usesTimer: 0
   _timer: 0
   _answerType: 0

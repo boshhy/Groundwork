@@ -13,7 +13,17 @@ MonoBehaviour:
   m_Name: New Question 2
   m_EditorClassIdentifier: 
   _info: Choose correct answers
-  _answers: []
+  _answers:
+  - _info: test one
+    _isCorrect: 0
+  - _info: test two
+    _isCorrect: 1
+  - _info: test three
+    _isCorrect: 0
+  - _info: test four
+    _isCorrect: 0
+  - _info: test five
+    _isCorrect: 0
   _usesTimer: 0
   _timer: 0
   _answerType: 0

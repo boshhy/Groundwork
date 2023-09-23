@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: New Question
   m_EditorClassIdentifier: 
   _info: This is a question that i have created.
-  _answers: []
+  _answers:
+  - _info: pick this one
+    _isCorrect: 1
+  - _info: this is the correct one
+    _isCorrect: 0
+  - _info: this one is not wrong
+    _isCorrect: 0
   _usesTimer: 0
   _timer: 0
   _answerType: 0

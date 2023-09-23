@@ -1169,8 +1169,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -140}
-  m_SizeDelta: {x: -100, y: -480}
+  m_AnchoredPosition: {x: 0, y: -135}
+  m_SizeDelta: {x: -100, y: -470}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &970343444
 MonoBehaviour:
@@ -1965,7 +1965,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1907608078}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.7281136
+  m_Size: 0.73257077
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2279,6 +2279,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a1735004a9e9d4382778fc4c8a97ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  events: {fileID: 11400000, guid: 9087f5681b722844596d6db08306f537, type: 2}
+  answerPrefab: {fileID: 4667578626464462370, guid: c34eb0890b3b147458eacaa903577957, type: 3}
+  uIElements:
+    answersContentArea: {fileID: 62440571}
+    questionInfoTextObject: {fileID: 34922079}
+    scoreText: {fileID: 813501838}
+    resolutionBG: {fileID: 621550455}
+    resolutionStateInfoText: {fileID: 1524733685}
+    resolutionScoreText: {fileID: 624696657}
+    highscoreText: {fileID: 540015142}
+    mainCanvasGroup: {fileID: 1602800244}
+    finishUIElements: {fileID: 2058446853}
+  parameters:
+    margins: 10
 --- !u!114 &1910541769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2291,7 +2305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3218dc17265852458517dfffc6df758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  events: {fileID: 0}
+  events: {fileID: 11400000, guid: 9087f5681b722844596d6db08306f537, type: 2}
 --- !u!4 &1910541770
 Transform:
   m_ObjectHideFlags: 0

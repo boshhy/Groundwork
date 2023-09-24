@@ -508,7 +508,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 224523825}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1910541769}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Accept
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &224523825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +797,7 @@ GameObject:
   - component: {fileID: 621550456}
   - component: {fileID: 621550455}
   - component: {fileID: 621550454}
+  - component: {fileID: 621550457}
   m_Layer: 5
   m_Name: Resolution Screen
   m_TagString: Untagged
@@ -822,7 +835,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621550452}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -864,6 +877,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621550452}
   m_CullTransparentMesh: 1
+--- !u!95 &621550457
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621550452}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: af09d195f5278c74ea053149d81a831d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &624696655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1094773266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2285,6 +2319,7 @@ MonoBehaviour:
     answersContentArea: {fileID: 62440571}
     questionInfoTextObject: {fileID: 34922079}
     scoreText: {fileID: 813501838}
+    resolutionScreenAnimator: {fileID: 621550457}
     resolutionBG: {fileID: 621550455}
     resolutionStateInfoText: {fileID: 1524733685}
     resolutionScoreText: {fileID: 624696657}
@@ -2293,6 +2328,9 @@ MonoBehaviour:
     finishUIElements: {fileID: 2058446853}
   parameters:
     margins: 10
+    correctBGColor: {r: 0.13550194, g: 0.8207547, b: 0.13550194, a: 1}
+    incorrectBGColor: {r: 0.764151, g: 0.12615699, b: 0.12615699, a: 1}
+    finalBGColor: {r: 0, g: 0.68235296, b: 1, a: 1}
 --- !u!114 &1910541769
 MonoBehaviour:
   m_ObjectHideFlags: 0

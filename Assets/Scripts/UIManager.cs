@@ -166,7 +166,7 @@ public class UIManager : MonoBehaviour
                 StartCoroutine(CalculateScore());
                 uIElements.FinishUIElements.gameObject.SetActive(true);
                 uIElements.HighscoreText.gameObject.SetActive(true);
-                uIElements.HighscoreText.text = ((highscore > events.StartUpHighscore) ? "<color=yellow>new </color>" : string.Empty) + "Highscore" + highscore;
+                uIElements.HighscoreText.text = ((highscore > events.StartUpHighscore) ? "<color=yellow>new </color>" : string.Empty) + "Highscore " + highscore;
                 // Display HighScore
 
                 break;
@@ -176,6 +176,7 @@ public class UIManager : MonoBehaviour
     IEnumerator CalculateScore()
     {
         var scoreValue = 0;
+
         while (scoreValue < events.currentFinalScore)
         {
             scoreValue++;

@@ -97,16 +97,19 @@ public class UIManager : MonoBehaviour
     {
         events.UpdateQuestionUI += UpdateQuestionUI;
         events.DisplayResolutionScreen += DisplayResolution;
+        events.ScoreUpdated += UpdateScoreUI;
     }
 
     void OnDisable()
     {
         events.UpdateQuestionUI -= UpdateQuestionUI;
         events.DisplayResolutionScreen -= DisplayResolution;
+        events.ScoreUpdated -= UpdateScoreUI;
     }
 
     void Start()
     {
+        UpdateScoreUI();
         resStateParaHash = Animator.StringToHash("ScreenState");
     }
 
@@ -177,14 +180,28 @@ public class UIManager : MonoBehaviour
     {
         var scoreValue = 0;
 
-        while (scoreValue < events.currentFinalScore)
+        if (events.currentFinalScore >= 0)
         {
-            scoreValue++;
-            uIElements.ResolutionScoreText.text = scoreValue.ToString();
+            while (scoreValue < events.currentFinalScore)
+            {
+                scoreValue++;
+                uIElements.ResolutionScoreText.text = scoreValue.ToString();
 
-            yield return null;
+                yield return null;
+            }
+            uIElements.ResolutionScoreText.text = scoreValue.ToString();
         }
-        uIElements.ResolutionScoreText.text = scoreValue.ToString();
+        else
+        {
+            while (scoreValue > events.currentFinalScore)
+            {
+                scoreValue--;
+                uIElements.ResolutionScoreText.text = scoreValue.ToString();
+
+                yield return null;
+            }
+            uIElements.ResolutionScoreText.text = scoreValue.ToString();
+        }
     }
 
     void CreateAnswers(Question question)
@@ -214,5 +231,10 @@ public class UIManager : MonoBehaviour
             Destroy(answer.gameObject);
         }
         currentAnswers.Clear();
+    }
+
+    void UpdateScoreUI()
+    {
+        uIElements.ScoreText.text = "Score: " + events.currentFinalScore.ToString();
     }
 }

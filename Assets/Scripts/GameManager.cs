@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -11,12 +14,23 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameEvents events = null;
 
+    [SerializeField] Animator timerAnimator = null;
+    [SerializeField] TextMeshProUGUI timerText = null;
+
+    private Color timerAlmostOutColor = Color.red;
+    private Color timerHalfWayOutColor = Color.yellow;
+    private Color timerDefaultColor = Color.white;
+
     private List<AnswerData> PickedAnswers = new List<AnswerData>();
     private List<int> FinishedQuestions = new List<int>();
 
     private int currentQuestion = 0;
 
+    private int timerStateParaHash = 0;
+
     private IEnumerator IE_WaitTillNextRound = null;
+    private IEnumerator IE_StartTimer = null;
+
 
     private bool IsFinished
     {
@@ -35,11 +49,21 @@ public class GameManager : MonoBehaviour
     {
         events.UpdateQuestionAnswer -= UpdateAnswers;
     }
+
+    void Awake()
+    {
+        events.currentFinalScore = 0;
+    }
+
     void Start()
     {
+        events.StartUpHighscore = PlayerPrefs.GetInt(GameUtility.SavePrefKey, 0);
+
+        timerDefaultColor = timerText.color;
         LoadQuestions();
 
-        events.currentFinalScore = 0;
+
+        timerStateParaHash = Animator.StringToHash("TimerState");
 
         var seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         UnityEngine.Random.InitState(seed);
@@ -95,14 +119,25 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Something went wrong while trying to display a new question");
         }
+
+        if (question.UsesTimer)
+        {
+            UpdateTimer(question.UsesTimer);
+        }
     }
 
     public void Accept()
     {
+        UpdateTimer(false);
         bool isCorrect = CheckAnswers();
         FinishedQuestions.Add(currentQuestion);
 
         UpdateScore(isCorrect ? Questions[currentQuestion].AddScore : -Questions[currentQuestion].AddScore);
+
+        if (IsFinished)
+        {
+            SetHighScore();
+        }
 
         var type = (IsFinished) ? UIManager.ResolutionScreenType.Finished : (isCorrect) ? UIManager.ResolutionScreenType.Correct : UIManager.ResolutionScreenType.Incorrect;
 
@@ -117,6 +152,59 @@ public class GameManager : MonoBehaviour
         }
         IE_WaitTillNextRound = WaitTillNextRound();
         StartCoroutine(IE_WaitTillNextRound);
+    }
+
+    void UpdateTimer(bool state)
+    {
+        switch (state)
+        {
+            case true:
+                IE_StartTimer = StartTimer();
+                StartCoroutine(IE_StartTimer);
+
+                timerAnimator.SetInteger(timerStateParaHash, 2);
+                break;
+
+            case false:
+                if (IE_StartTimer != null)
+                {
+                    StopCoroutine(IE_StartTimer);
+                }
+
+                timerAnimator.SetInteger(timerStateParaHash, 1);
+                break;
+        }
+    }
+
+    IEnumerator StartTimer()
+    {
+        var totalTime = Questions[currentQuestion].Timer;
+        var timeLeft = totalTime;
+        timerText.text = timeLeft.ToString();
+
+        timerText.color = timerDefaultColor;
+
+        while (timeLeft > 0)
+        {
+            timeLeft--;
+            if (timeLeft < totalTime / 2 && timeLeft > totalTime / 4)
+            {
+                timerText.color = timerHalfWayOutColor;
+            }
+            else if (timeLeft <= totalTime / 4)
+            {
+                timerText.color = timerAlmostOutColor;
+            }
+
+            yield return new WaitForSeconds(1.0f);
+            timerText.text = timeLeft.ToString();
+
+        }
+
+        timeLeft = 0;
+        timerText.text = timeLeft.ToString();
+
+        Accept();
     }
 
     IEnumerator WaitTillNextRound()
@@ -183,6 +271,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetHighScore()
+    {
+        var highscore = PlayerPrefs.GetInt(GameUtility.SavePrefKey, 0);
+
+        if (highscore < events.currentFinalScore)
+        {
+            PlayerPrefs.SetInt(GameUtility.SavePrefKey, events.currentFinalScore);
+        }
+    }
 
     private void UpdateScore(int add)
     {
@@ -192,5 +289,15 @@ public class GameManager : MonoBehaviour
         {
             events.ScoreUpdated();
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

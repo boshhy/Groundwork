@@ -15,9 +15,9 @@ MonoBehaviour:
   _info: Choose correct answers
   _answers:
   - _info: test one
-    _isCorrect: 0
-  - _info: test two
     _isCorrect: 1
+  - _info: test two
+    _isCorrect: 0
   - _info: test three
     _isCorrect: 0
   - _info: test four
